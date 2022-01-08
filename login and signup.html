@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Login & Signup Form </title>
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+        <style>
+             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap');
+
+             *{
+                 margin: 0;
+                 padding: 0;
+                 box-sizing: border-box;
+                 font-family: 'Poppins', sans-serif;
+             }
+
+             body{
+                 min-height: 100vh;
+                 background:#F5F5F5;
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+             }
+
+             .from-container{
+                 position: absolute;
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+                 font-size: 1rem;
+             }
+
+             .form-box{
+                 z-index: 999;
+                 background: #fff;
+                 box-shadow: 0 5px 25px rgb(0 0 0 / 30%);
+                 width: 400px;
+                 padding: 50px 40px;
+                 border-radius: 5px;
+                 overflow: hidden;
+             }
+
+             .form-box h2{
+                 font-size: 2rem; 
+                 margin-bottom: 30px;
+             }
+
+             .form-box .field{
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+                 border-bottom: 2px solid #eee;
+                 margin-bottom: 25px;
+             }
+
+             .terms-and-privacy p{
+                border: none;
+                outline: none;
+                background: none;
+                width: 100%;
+                font-size: 15px;
+                padding-bottom: 5px;
+             }
+
+             .terms-and-privacy a{
+                color: #2f00ff;
+             }
+
+             .form-box .field.active{
+                border-bottom: 2px solid #2f00ff;
+                transition: 0.3s ease;
+             }
+
+             .form-box .field.active i{
+                 color: #2f00ff;
+                 transition: 0.3s ease;
+             }
+
+             .form-box .field input{
+                 border: none;
+                 outline: none;
+                 background: none;
+                 width: 100%;
+                 font-size: 1em;
+                 padding-bottom: 5px;
+             }
+
+             .form-box .field i{
+                 color: #828da0;
+                 font-size: 1.3em;
+                 margin-right: 10px;
+                 padding-bottom: 5px;
+             }
+             ::placeholder{
+                 color: #828da0;
+                 font-size: 0.85em;
+             }
+
+             .eye-btn{
+                 cursor: pointer;
+             }
+
+             .eye-btn i:hover{
+                 color: #2f00ff;
+                 transition: 0.3s ease;
+             }
+
+             .forgot-link{
+                 text-align: right;
+                 transform: translateY(-10px);
+             }
+
+             .forgot-link a{
+                 color: #2f00ff;
+                 font-size: 0.8em;
+                 text-decoration: none;
+                 font-weight: bold;
+             }
+
+             .submit-btn{
+                 background: #2f00ff;
+                 color: #fff;
+                 border: none;
+                 outline: none;
+                 width: 120px;
+                 padding: 10px 30px;
+                 border-radius: 5px;
+                 font-size: 0.8em;
+                 font-weight: 500;
+                 margin-top: 5px;
+                 cursor: pointer;
+             }
+
+             .login-options{
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+                 flex-direction: column;
+             }
+
+             .login-options .text{
+                 color: #828da0;
+                 font-size: 0.65em;
+                 margin: 25px 0;
+             }
+
+             .other-logins{
+                 display: flex;
+             }
+
+             .other-logins a{
+                 border: 1px solid #ccc;
+                 padding: 11px 32px;
+                 border-radius: 12px;
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+                 margin: 0 5px;
+                 transition: border 0.3s ease;
+             }
+
+             .other-logins a:hover{
+                border: 1px solid #2f00ff;
+             }
+
+             .other-logins a img{
+                width: 20px;
+             }
+
+             .imgBox img{
+                 max-width: 300px;
+             }
+
+             .sliding-link{
+                 display: flex;
+                 font-size: 0.9em;
+                 margin-top: 15px;
+             }
+
+             .sliding-link span{
+                 color: #2f00ff;
+                 font-weight: 600;
+                 margin-left: 5px;
+                 cursor: pointer;
+             }
+
+             .imgBox{
+                 z-index: 888;
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+                 flex-direction: column;
+                 background: #fff;
+                 border-radius: 5px;
+                 box-shadow: 0 5px 25px rgb(0 0 0 / 30%);
+                 height: 400px;
+                 padding: 15px 35px;
+             }
+
+             .sign-in-box{
+                 border-radius: 0 5px 5px 0;
+             }
+
+             .sign-up-box{
+                 border-radius: 5px 0 0 5px;
+             }
+
+             .sign-in-form.hide .sign-in-box{
+                 transform: translateX(100%);
+                 visibility: hidden;
+             }
+
+             .sign-in-form.hide .sign-in-imgBox{
+                 transform: translateX(-100%);
+                 visibility: hidden;
+             }
+
+             .sign-in-form.show .sign-in-box,
+             .sign-in-form.show .sign-in-imgBox{
+                 transform: translateX(0);
+                 visibility: visible;
+                 transition: 0.5s ease;
+             }
+
+             .sign-up-form .sign-up-imgBox{
+                 transform: translateX(100%);
+                 visibility: hidden;
+             }
+
+             .sign-up-form .sign-up-box{
+                 transform: translateX(-100%);
+                 visibility: hidden;
+             }
+
+             .sign-up-form.show .sign-up-imgBox,
+             .sign-up-form.show .sign-up-box{
+                transform: translateX(0);
+                visibility: visible;
+                transition: 0.5s ease;
+             }
+
+             @media screen and (max-width: 735px){
+                .from-container{
+                    flex-direction: column;
+                    top: 0;
+                    overflow: hidden;
+                    padding: 30px;
+                }
+
+                .form-box{
+                    box-shadow: none;
+                    padding: 0;
+                }
+
+                .imgBox img{
+                    max-width: 45%;
+                    min-width: 180px;
+                }
+
+                .imgBox{
+                    box-shadow: none;
+                    width: 100%;
+                    height: auto;
+                    padding: 35px 35px 15px;
+                }
+
+                .sign-up-form{
+                    flex-direction: column-reverse;
+                }
+             }
+
+             @media screen and (max-width:735px){
+                body{
+                    min-height: 100vh;
+                    background:#fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+             }
+
+             @media screen and (max-width:450px){
+                body{
+                    min-height: 100vh;
+                    background:#fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                 .from-container{
+                     font-size: 0.9rem;
+                 }
+
+                 .form-box{
+                     width: 100%;
+                 }
+             }
+
+             @media screen and (max-width:325px){
+                body{
+                    min-height: 100vh;
+                    background:#fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                 .other-logins a{
+                     padding: 9px 25px;
+                     margin: 0 3px;
+                 }
+             }
+
+        </style>
+
+    </head>
+
+    <body>
+        
+        <div class="from-container sign-in-form">
+            <div class="form-box sign-in-box">
+                <h2> Login </h2>
+                <form action="">
+                    <div class="field">
+                        <i class="uil uil-at"></i>
+                        <input type="email" placeholder="Email ID" required>
+                    </div>
+                    <div class="field">
+                        <i class="uil uil-lock-alt"></i>
+                        <input class="password-input" type="password" placeholder="password" required>
+                        <div class="eye-btn"><i class="uil uil-eye-slash"></i></div>
+                    </div>
+                    <div class="forgot-link">
+                        <a href=""> forgot password ? </a>
+                    </div>
+                    <input class="submit-btn" type="submit" value="login">
+                </form>
+                <div class="login-options">
+                    <p class="text"> Or, login with... </p>
+                    <div class="other-logins">
+                        <a href=""><img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt=""></a>
+                        <a href=""><img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt=""></a>
+                        <a href=""><img src="https://cdn-icons-png.flaticon.com/512/179/179342.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="imgBox sign-in-imgBox">
+                <div class="sliding-link">
+                    <p> Don't have an account ? </p>
+                    <span class="sign-up-btn"> Sign up </span>
+                </div>
+                <img src="https://i.pinimg.com/736x/c3/54/00/c35400d86b49eb61a0fe6d2d07e57c52.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="from-container sign-up-form">
+            <div class="imgBox sign-up-imgBox">
+                <div class="sliding-link">
+                    <p> Already have account ? </p>
+                    <span class="sign-in-btn"> Sign in </span>
+                </div>
+                <img src="https://image.freepik.com/free-vector/sign-page-abstract-concept-illustration_335657-2242.jpg" alt="">
+            </div>
+            <div class="form-box sign-up-box">
+                <h2> Sign up </h2>
+                <div class="login-options">
+                    <div class="other-logins">
+                        <a href=""><img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt=""></a>
+                        <a href=""><img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt=""></a>
+                        <a href=""><img src="https://cdn-icons-png.flaticon.com/512/179/179342.png" alt=""></a>
+                    </div>
+                    <p class="text"> Or, Sign up with email... </p>
+                </div>
+                <form action="">
+                    <div class="field">
+                        <i class="uil uil-at"></i>
+                        <input type="email" placeholder="Email ID" required>
+                    </div>
+                    <div class="field">
+                        <i class="uil uil-user"></i>
+                        <input type="text" placeholder="Full name" required>
+                    </div>
+                    <div class="field">
+                        <i class="uil uil-lock-alt"></i>
+                        <input type="password" placeholder="password" required>
+                    </div>
+                    <div class="field">
+                        <i class="uil uil-lock-access"></i>
+                        <input type="password" placeholder="Confirm password" required>
+                    </div>
+                    <div class="terms-and-privacy">
+                        <p>By Creating an account you agree to our <a href="#">Terms & Privacy.</a> </p>
+                    </div>
+                   
+                    <input class="submit-btn" type="submit" value="Sign up">
+                </form>
+            </div>
+        </div>
+
+        <script>
+            //input field focus effect
+            const textInputs = document.querySelectorAll("input");
+
+            textInputs.forEach(textInput => {
+                textInput.addEventListener("focus", () => {
+                    let parent = textInput.parentNode;
+                    parent.classList.add("active");
+                });
+
+                textInput.addEventListener("blur", () => {
+                    let parent = textInput.parentNode;
+                    parent.classList.remove("active");
+                });
+            });
+
+            //password show/hide button
+            const passwordInput = document.querySelector(".password-input");
+            const eyeBtn = document.querySelector(".eye-btn") 
+
+            eyeBtn.addEventListener("click", () => {
+                if(passwordInput.type === "password"){
+                    passwordInput.type = "text";
+                    eyeBtn.innerHTML = "<i class='uil uil-eye'></i>"
+                }
+                else{
+                    passwordInput.type = "password";
+                    eyeBtn.innerHTML = "<i class='uil uil-eye-slash'></i>" 
+                }
+            });
+
+            // sliding between sign in form and sign up form
+            const signUpBtn = document.querySelector(".sign-up-btn")
+            const signInBtn = document.querySelector(".sign-in-btn")
+            const signUpForm = document.querySelector(".sign-up-form")
+            const signInForm = document.querySelector(".sign-in-form")
+
+            signUpBtn.addEventListener("click", () => {
+                signInForm.classList.add("hide");
+                signUpForm.classList.add("show");
+                signInForm.classList.remove("show");
+            });
+            signInBtn.addEventListener("click", () => {
+                signInForm.classList.remove("hide");
+                signUpForm.classList.remove("show");
+                signInForm.classList.add("show");
+            });
+        </script>
+
+    </body>
+
+</html>
